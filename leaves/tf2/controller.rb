@@ -73,7 +73,7 @@ class Controller < Autumn::Leaf
   protected
 
   def get_awards_output(player)
-    name = (player>'name').text
+    playerName = (player>'name').text
     steamID = (player>'uniqueid').text
     url = @base_url + 'playerinfo/tf/' + steamID + '/awards'
     doc = Nokogiri::XML(open(url))
@@ -85,10 +85,10 @@ class Controller < Autumn::Leaf
         if(awardDate == DateTime.yesterday) then
             name = (a>'name').text
             count = (a>'count').text
-            todaysAwards << name + ' ( ' + count + ' )'
+            todaysAwards << playerName + ': ' + name + ' ( ' + count + ' )'
         end
     end
-    return "No awards for " + name + "." if todaysAwards.empty?
+    return "No awards for " + playerName + "." if todaysAwards.empty?
     todaysAwards.join("\n")
   end
 
