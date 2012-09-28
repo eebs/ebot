@@ -1,10 +1,13 @@
---- 
-Example: 
-  nick: MyIRCBot
-  leaves: 
+---
+Example:
+  nick: ebot
+  leaves:
   - Administrator
-  - Scorekeeper
-  - Insulter
+  - Tf2
   rejoin: true
-  channel: "#yourchannel"
-  server: irc.yourircserver.com
+  channels:
+  - "#TeamFuncom"
+  server: irc.gamesurge.net
+  throttle: true
+  throttle_rate: 0.5
+  throttle_threshold: 5

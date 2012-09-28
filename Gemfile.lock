@@ -30,6 +30,7 @@ GEM
     extlib (0.9.15)
     facets (2.9.1)
     i18n (0.5.0)
+    nokogiri (1.5.2)
 
 PLATFORMS
   ruby
@@ -47,3 +48,4 @@ DEPENDENCIES
   dm-validations
   facets
   i18n
+  nokogiri
