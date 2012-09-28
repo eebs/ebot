@@ -36,7 +36,9 @@ class Controller < Autumn::Leaf
   end
 
   def huggle_command(stem, sender, reply_to, msg)
-    '/me huggles ' + sender[:nick]
+    name = msg
+    name ||= sender[:nick]
+    '/me huggles ' + name
   end
 
   def awards_command(stem, sender, reply_to, msg)
