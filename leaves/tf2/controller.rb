@@ -58,6 +58,18 @@ class Controller < Autumn::Leaf
     output += get_awards_output(player)
   end
 
+  def roll_command(stem, sender, reply_to, msg)
+    parts = msg.split
+    return "Invalid entry" if parts.size != 2
+    output = Array.new
+    dice = parts[0]
+    sides = parts[1]
+    dice.to_i.times do |x|
+        output << Random.rand(1..sides.to_i)
+    end
+    output.join(', ')
+  end
+
   protected
 
   def get_awards_output(player)
