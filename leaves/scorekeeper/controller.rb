@@ -39,6 +39,9 @@ class Controller < Autumn::Leaf
   end
 
   def parse_change(stem, channel, sender, victim, delta, note)
+    if delta.abs > 5 then
+      render :toomanypoints
+    end
     giver = find_person(stem, sender[:nick])
     if giver.nil? and options[:scoring] == 'open' then
       giver ||= Person.create(:server => server_identifier(stem), :name => sender[:nick])
