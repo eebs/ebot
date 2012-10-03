@@ -11,9 +11,9 @@ end
 
 # Only loaded if a database.yml file exists for a season
 group :datamapper do
-  #gem 'dm-sqlite-adapter', '< 1.1.0' # Change this to whatever adapter you need for your database
-  #gem 'dm-core', '< 1.1.0'
-  #gem 'dm-migrations', '< 1.1.0'
+  gem 'dm-sqlite-adapter', '< 1.1.0' # Change this to whatever adapter you need for your database
+  gem 'dm-core', '< 1.1.0'
+  gem 'dm-migrations', '< 1.1.0'
 end
 
 # load each leaf's gem requirements in its own group
