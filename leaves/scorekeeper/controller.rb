@@ -40,7 +40,8 @@ class Controller < Autumn::Leaf
 
   def parse_change(stem, channel, sender, victim, delta, note)
     if delta.abs > 5 then
-      render :toomanypoints
+      var :toomanypoints => true
+      return
     end
     giver = find_person(stem, sender[:nick])
     if giver.nil? and options[:scoring] == 'open' then
