@@ -1,0 +1,11 @@
+group :lunch do
+  # Insert your leaf's gem requirements here
+  gem 'chronic'
+end
+
+# Additions to the DataMapper requirements
+group :datamapper do
+  gem 'dm-ar-finders'
+  gem 'dm-validations'
+  gem 'dm-timestamps'
+end
