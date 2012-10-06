@@ -29,6 +29,11 @@ class Controller < Autumn::Leaf
         creator ||= Person.create(:server => server_identifier(stem), :name => sender[:nick])
     end
 
+    if creator.nil?
+        var :failed => true
+        return
+    end
+
     unless authorized?(creator)
         var :unathorized => true
         return
