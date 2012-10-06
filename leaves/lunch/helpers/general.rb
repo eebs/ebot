@@ -53,7 +53,7 @@ module GeneralHelper
   end
   
   def add_suggestion(stem, channel, creator, msg)
-    return if msg.empty?
+    return if msg.empty? or creator.nil?
     chan = Channel.find_or_create :server => server_identifier(stem), :name => channel
     chan.suggestions.create :creator => creator, :lunch => msg
   end
