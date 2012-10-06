@@ -11,7 +11,7 @@ class Controller < Autumn::Leaf
   def lunch_command(stem, sender, reply_to, msg)
     if msg.nil? or msg.empty? then
         lunch = get_random_suggestion stem, reply_to
-        if lunch.empty? then
+        if lunch.nil? or lunch.empty? then
             var :failed => true
             return
         end
