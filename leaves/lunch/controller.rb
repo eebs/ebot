@@ -18,6 +18,7 @@ class Controller < Autumn::Leaf
         var :lunch => lunch
     else # adding a lunch suggestion
         parse_suggestion stem, sender, reply_to, msg
+        render :add
     end
   end
 
