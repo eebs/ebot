@@ -5,3 +5,5 @@ Administrator:
   class: Administrator
 Tf2:
   class: Tf2
+Lunch:
+  class: Lunch

@@ -4,10 +4,11 @@ Example:
   leaves:
   - Administrator
   - Tf2
+  - Lunch
   rejoin: true
   channels:
   - "#TeamFuncom"
   server: irc.gamesurge.net
   throttle: true
-  throttle_rate: 0.5
-  throttle_threshold: 5
+  throttle_rate: 1
+  throttle_threshold: 4
