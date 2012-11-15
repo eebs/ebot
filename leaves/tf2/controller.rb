@@ -67,7 +67,7 @@ class Controller < Autumn::Leaf
     dice = parts[0]
     sides = parts[1]
     dice.to_i.times do |x|
-        output << Random.rand(1..sides.to_i)
+        output << Random.rand(1..sides.to_i) unless sides < 1
     end
     output.join(', ')
   end
