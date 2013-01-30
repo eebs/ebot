@@ -1,7 +1,5 @@
-<% if var(:unauthorized) %>
-    You are unauthorized to perform this action!
-<% elsif var(:failed) %>
+<% if var(:failed) %>
     No lunch suggestions.
 <% else %>
-    <%= var(:lunch).creator.name %> <%= 'suggested' %> <%= var(:lunch).lunch %>.
+    <%= var(:lunch).creator %> <%= 'suggested' %> <%= var(:lunch).lunch %>.
 <% end %>

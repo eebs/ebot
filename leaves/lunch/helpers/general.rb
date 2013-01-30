@@ -58,7 +58,7 @@ module GeneralHelper
     chan.suggestions.create :creator => creator, :lunch => msg
   end
 
-  def get_random_suggestion(stem, channel)
+  def get_random_suggestion()
     Suggestion.first(:offset => rand(Suggestion.count))
   end
   

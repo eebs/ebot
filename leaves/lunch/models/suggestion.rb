@@ -4,19 +4,13 @@ class Suggestion
   include DataMapper::Resource
 
   property :id, Serial
-  property :creator_id, Integer, :required => true, :index => true
-  property :channel_id, Integer, :required => true, :index => true
+  property :creator, String, :required => true, :index => true
   property :lunch, String
   timestamps :created_at
 
-  belongs_to :creator, :model => 'Person', :child_key => [ :creator_id ]
-  belongs_to :channel
-
   # Returns suggestion created by a Person.
-  def self.given_by(people)
-    people = [ people ] unless people.kind_of?(Enumerable)
-    people.map! { |person| person.kind_of?(Person) ? person.id : person }
-    all(:creator_id => people)
+  def self.given_by(nick)
+    all(:creator => nick)
   end
 
   # Returns suggestion given between two dates.

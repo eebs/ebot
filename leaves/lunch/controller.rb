@@ -10,7 +10,7 @@ class Controller < Autumn::Leaf
 
   def lunch_command(stem, sender, reply_to, msg)
     if msg.nil? or msg.empty? then
-        lunch = get_random_suggestion stem, reply_to
+        lunch = get_random_suggestion
         if lunch.nil? or lunch.empty? then
             var :failed => true
             return
@@ -25,23 +25,6 @@ class Controller < Autumn::Leaf
   private
 
   def parse_suggestion(stem, sender, reply_to, msg)
-    creator = find_person(stem, sender[:nick])
-    if creator.nil? then
-        creator ||= Person.create(:server => server_identifier(stem), :name => sender[:nick])
-    end
-
-    if creator.nil?
-        var :failed => true
-        return
-    end
-
-    unless authorized?(creator)
-        var :unathorized => true
-        return
-    end
-
-    add_suggestion stem, reply_to, creator, msg
-    var :creator => creator
-    var :msg => msg
+    add_suggestion stem, reply_to, sender, msg
   end
 end
