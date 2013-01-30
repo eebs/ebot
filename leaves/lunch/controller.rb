@@ -17,14 +17,16 @@ class Controller < Autumn::Leaf
         end
         var :lunch => lunch
     else # adding a lunch suggestion
-        parse_suggestion stem, sender, reply_to, msg
+        parse_suggestion sender, msg
         render :add
     end
   end
 
   private
 
-  def parse_suggestion(stem, sender, reply_to, msg)
-    add_suggestion stem, reply_to, sender, msg
+  def parse_suggestion(sender, msg)
+    unless add_suggestion sender, msg
+      var :failed => true
+    end
   end
 end
