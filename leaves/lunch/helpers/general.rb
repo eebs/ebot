@@ -32,7 +32,7 @@ module GeneralHelper
 
   def add_suggestion(sender, msg)
     return false if msg.empty? or sender.nil?
-    Suggestion.create :creator => sender[:nick], :lunch => msg
+    Suggestion.create(:creator => sender[:nick], :lunch => msg)
   end
 
   def get_random_suggestion()

@@ -4,7 +4,7 @@ class Suggestion
   include DataMapper::Resource
 
   property :id, Serial
-  property :creator, String, :required => true, :index => true
+  property :creator, String
   property :lunch, String
   timestamps :created_at
 
