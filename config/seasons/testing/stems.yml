@@ -5,6 +5,7 @@ Example:
   - Administrator
   - Tf2
   - Lunch
+  - Server
   rejoin: true
   channels:
   - "#TeamFuncom"
