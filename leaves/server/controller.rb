@@ -12,14 +12,11 @@ class Controller < Autumn::Leaf
     if File.exists? 'update_runfile.txt'
       'Server update in progress, please wait.'
     else
-      begin
-        File.open("update_runfile.txt", 'w') {|f| f.write($$) }
-        stem.message 'Updating TF2 server'
-        `cd /home/tf2server && ./steamcmd.sh +runscript update_tf2.txt`
-        stem.message 'Finished updating TF2 server'
-      ensure
-        File.delete 'update_runfile.txt'
-      end
+      File.open("update_runfile.txt", 'w') {|f| f.write($$) }
+      stem.message 'Updating TF2 server'
+      `cd /home/tf2server && ./steamcmd.sh +runscript update_tf2.txt`
+      stem.message 'Finished updating TF2 server'
+      File.delete 'update_runfile.txt'
     end
   end
 end
