@@ -19,4 +19,5 @@ class Controller < Autumn::Leaf
       File.delete 'update_runfile.txt'
     end
   end
+  ann :update_command, :protected => true
 end
