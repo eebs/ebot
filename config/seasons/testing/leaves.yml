@@ -7,3 +7,7 @@ Tf2:
   class: Tf2
 Lunch:
   class: Lunch
+Server:
+  authentication:
+    type: op
+  class: Server
