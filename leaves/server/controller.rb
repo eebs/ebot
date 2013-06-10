@@ -12,6 +12,5 @@ class Controller < Autumn::Leaf
     stem.message 'Updating TF2 server'
     `cd /home/tf2server && ./steamcmd.sh +runscript update_tf2.txt`
     stem.message 'Finished updating TF2 server'
-    'Hrm...'
   end
 end
