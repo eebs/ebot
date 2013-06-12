@@ -10,17 +10,12 @@ class Controller < Autumn::Leaf
     # This method renders the file "about.txt.erb"
   end
 
-  def someone_did_quit(stem, person, channel)
-    logger.debug "#{person[:nick]} left channel"
-    stem.message 'Good riddance, I never really liked ' + person[:nick] + ' anyway'
-  end
-
   def did_start_up
     stems.message "Hello!"
   end
 
   def did_receive_channel_message(stem, sender, channel, msg)
-    if msg.include? 'ebot'
+    if msg.include? 'ebot' and rand(1..100) == 1
       stem.message '/me blinks'
     end
   end
