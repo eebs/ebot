@@ -19,6 +19,12 @@ class Controller < Autumn::Leaf
     stems.message "Hello!"
   end
 
+  def did_receive_channel_message(stem, sender, channel, msg)
+    if msg.include? 'ebot'
+      stem.message '/me blinks'
+    end
+  end
+
   def tf2_command(stem, sender, reply_to, msg)
     url = @base_url + 'serverinfo/' + @server_ip
     doc = Nokogiri::XML(open(url))
