@@ -10,6 +10,14 @@ class Controller < Autumn::Leaf
     # This method renders the file "about.txt.erb"
   end
 
+  def someone_did_leave_channel(stem, person, channel)
+    stem.message 'Good riddance, I never really liked ' + person[:nick] + ' anyway'
+  end
+
+  def did_start_up
+    stems.message "Hello!"
+  end
+
   def tf2_command(stem, sender, reply_to, msg)
     url = @base_url + 'serverinfo/' + @server_ip
     doc = Nokogiri::XML(open(url))
