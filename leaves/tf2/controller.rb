@@ -10,7 +10,7 @@ class Controller < Autumn::Leaf
     # This method renders the file "about.txt.erb"
   end
 
-  def someone_did_leave_channel(stem, person, channel)
+  def someone_did_quit(stem, person, channel)
     logger.debug "#{person[:nick]} left channel"
     stem.message 'Good riddance, I never really liked ' + person[:nick] + ' anyway'
   end
