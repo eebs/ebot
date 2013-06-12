@@ -11,6 +11,7 @@ class Controller < Autumn::Leaf
   end
 
   def someone_did_leave_channel(stem, person, channel)
+    logger.debug "#{person[:nick]} left channel"
     stem.message 'Good riddance, I never really liked ' + person[:nick] + ' anyway'
   end
 
