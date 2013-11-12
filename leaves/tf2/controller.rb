@@ -9,6 +9,10 @@ class Controller < Autumn::Leaf
   def about_command(stem, sender, reply_to, msg)
     # This method renders the file "about.txt.erb"
   end
+  
+  def zing_command(stem, sender, reply_to, msg)
+    'http://eebsy.com/zing.mp3'
+  end
 
   def did_start_up
     stems.message "Hello!"
