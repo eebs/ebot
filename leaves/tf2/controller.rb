@@ -23,7 +23,7 @@ class Controller < Autumn::Leaf
       stem.message '/me blinks'
     end
 
-    if sender[:nick] == 'ProdigyXP' and rand(1..25) == 1
+    if sender[:nick] == 'ProdigyXP' and rand(1..25) == 1 and msg.length > 20
       stem.message 'Was that a pun?'
     end
   end
