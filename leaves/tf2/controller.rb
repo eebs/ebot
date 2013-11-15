@@ -19,12 +19,11 @@ class Controller < Autumn::Leaf
   end
 
   def did_receive_channel_message(stem, sender, channel, msg)
-    logger.debug "Got message from " + sender[:nick]
     if msg.include? 'ebot' and rand(1..100) == 1
       stem.message '/me blinks'
     end
 
-    if sender[:nick] == 'ProdigyXP' and rand(1..20) == 1
+    if sender[:nick] == 'ProdigyXP'# and rand(1..20) == 1
       stem.message 'Was that a pun?'
     end
   end
