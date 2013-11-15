@@ -22,6 +22,10 @@ class Controller < Autumn::Leaf
     if msg.include? 'ebot' and rand(1..100) == 1
       stem.message '/me blinks'
     end
+
+    if sender[:nick] == 'ProdigyXP' and rand(1..20) == 1
+      stem.message 'Was that a pun?'
+    end
   end
 
   def tf2_command(stem, sender, reply_to, msg)
