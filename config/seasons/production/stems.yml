@@ -1,0 +1,9 @@
+---
+Example:
+  server: irc.gamesurge.net
+  nick: ebottesting
+  channel: '#ebottesting'
+  rejoin: true
+  leaves:
+  - Administrator
+  - Tf2

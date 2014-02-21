@@ -1,5 +1,6 @@
 require 'yaml'
 require 'libs/coder'
+require 'pathname'
 
 module Autumn
 

@@ -1,0 +1,7 @@
+---
+Administrator:
+  class: Administrator
+  authentication:
+    type: op
+Tf2:
+  class: Tf2
