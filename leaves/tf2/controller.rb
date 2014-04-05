@@ -132,6 +132,6 @@ class Controller < Autumn::Leaf
 
   def base_url_filter(stem, channel, sender, command, msg, opts)
     @base_url ||= 'http://teamfuncom2.gameme.com/api/'
-    @server_ip ||= '173.234.159.103:27018'
+    @server_ip ||= '23.108.31.114:27015'
   end
 end
