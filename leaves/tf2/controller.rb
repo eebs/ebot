@@ -1,6 +1,7 @@
 # Controller for the Tf2 leaf.
 
 require 'open-uri'
+require 'json'
 class Controller < Autumn::Leaf
   before_filter :base_url
 
@@ -9,7 +10,7 @@ class Controller < Autumn::Leaf
   def about_command(stem, sender, reply_to, msg)
     # This method renders the file "about.txt.erb"
   end
-  
+
   def zing_command(stem, sender, reply_to, msg)
     'http://eebsy.com/zing.mp3'
   end
@@ -25,6 +26,14 @@ class Controller < Autumn::Leaf
 
     if sender[:nick] == 'ProdigyXP' and rand(1..50) == 1 and msg.length > 20
       stem.message 'Was that a pun?'
+    end
+
+    if /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(?<videoid>[\w-]{10,})/ =~ msg
+      url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=#{videoid}&key=#{options[:youtube]}"
+      buffer = open(url).read
+      result = JSON.parse(buffer)
+      item = result.first
+      stem.message item['snippet']['title']
     end
   end
 
