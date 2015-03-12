@@ -1,6 +1,7 @@
 # Controller for the Tf2 leaf.
 
 require 'open-uri'
+require 'net/http'
 require 'json'
 class Controller < Autumn::Leaf
   before_filter :base_url
@@ -29,11 +30,19 @@ class Controller < Autumn::Leaf
     end
 
     if /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(?<videoid>[\w-]{10,})/ =~ msg
-      url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=#{videoid}&key=#{options[:youtube]}"
-      buffer = open(url).read
-      result = JSON.parse(buffer)
-      item = result.first
-      stem.message item['snippet']['title']
+      uri = URI.parse("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=#{videoid}&key=#{options[:youtube]}")
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      http.use_ssl = true
+      response = http.request(request)
+      logger.debug 'code ' + response.code
+      if response.code == '200'
+        result = JSON.parse(response.body)
+        if result['items'].size == 1
+          item = result['items'].first
+          stem.message item['snippet']['title']
+        end
+      end
     end
   end
 
