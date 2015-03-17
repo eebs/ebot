@@ -56,7 +56,7 @@ class Controller < Autumn::Leaf
         result = JSON.parse(response.body)
         result.each do |kill|
           victimName = kill['victim']['characterName']
-	  shipTypeID = kill['victim']['shipTypeID']
+          shipTypeID = kill['victim']['shipTypeID']
           shipTypeNameURL = "https://api.eveonline.com/eve/TypeName.xml.aspx?ids=#{shipTypeID}"
 
           doc = Nokogiri::XML(open(shipTypeNameURL))
