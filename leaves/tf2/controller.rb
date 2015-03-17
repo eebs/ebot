@@ -35,7 +35,6 @@ class Controller < Autumn::Leaf
       request = Net::HTTP::Get.new(uri.request_uri)
       http.use_ssl = true
       response = http.request(request)
-      logger.debug 'code ' + response.code
       if response.code == '200'
         result = JSON.parse(response.body)
         if result['items'].size == 1
@@ -43,6 +42,33 @@ class Controller < Autumn::Leaf
           stem.message item['snippet']['title']
         end
       end
+    end
+  end
+
+  def kill_command(stem, sender, reply_to, msg)
+    if ['mots', 'motstandet', 'Eebs', 'Eebs|Work'].include?(sender[:nick])
+      uri = URI.parse('https://zkillboard.com/api/kills/characterID/91131249/pastSeconds/86400/?sorry=' + Time.now.to_i.to_s)
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri, {'Accept-Encoding' => 'gzip'})
+      http.use_ssl = true
+      response = http.request(request)
+      if response.code == '200'
+        result = JSON.parse(response.body)
+        result.each do |kill|
+          victimName = kill['victim']['characterName']
+	  shipTypeID = kill['victim']['shipTypeID']
+          shipTypeNameURL = "https://api.eveonline.com/eve/TypeName.xml.aspx?ids=#{shipTypeID}"
+
+          doc = Nokogiri::XML(open(shipTypeNameURL))
+          elems = doc.xpath("//*[@typeName]")
+          shipName = elems[0].attribute('typeName')
+          stem.message "Killed #{victimName} in #{shipName}"
+        end
+      else
+        stem.message "Sorry, KB response code was #{response.code}"
+      end
+    else
+      stem.message 'I dunno who you are, sorry'
     end
   end
 
