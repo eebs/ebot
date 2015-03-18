@@ -55,14 +55,25 @@ class Controller < Autumn::Leaf
       if response.code == '200'
         result = JSON.parse(response.body)
         result.each do |kill|
-          victimName = kill['victim']['characterName']
-          shipTypeID = kill['victim']['shipTypeID']
-          shipTypeNameURL = "https://api.eveonline.com/eve/TypeName.xml.aspx?ids=#{shipTypeID}"
-
-          doc = Nokogiri::XML(open(shipTypeNameURL))
+          killerName = kill['attackers'][0]['characterName'];
+          killerShipTypeID = kill['attackers'][0]['shipTypeID'];
+          killerShipTypeNameURL = "https://api.eveonline.com/eve/TypeName.xml.aspx?ids=#{killerShipTypeID}"
+          killerCount = kill['attackers'].length
+ 
+          doc = Nokogiri::XML(open(killerShipTypeNameURL))
           elems = doc.xpath("//*[@typeName]")
-          shipName = elems[0].attribute('typeName')
-          stem.message "Killed #{victimName} in #{shipName}"
+          killerShipName = elems[0].attribute('typeName')
+ 
+          victimName = kill['victim']['characterName']
+          victimShipTypeID = kill['victim']['shipTypeID']
+          victimShipTypeNameURL = "https://api.eveonline.com/eve/TypeName.xml.aspx?ids=#{victimShipTypeID}"
+ 
+          doc = Nokogiri::XML(open(victimShipTypeNameURL))
+          elems = doc.xpath("//*[@typeName]")
+          victimShipName = elems[0].attribute('typeName')
+ 
+          killerFriends = killerCount > 0 ? "+#{killerCount}" : "solo"
+          stem.message "#{killerName} (#{killerFriends}) [#{killerShipName}] killed #{victimName} in #{victimShipName}"
         end
       else
         stem.message "Sorry, KB response code was #{response.code}"
