@@ -72,7 +72,7 @@ class Controller < Autumn::Leaf
           elems = doc.xpath("//*[@typeName]")
           victimShipName = elems[0].attribute('typeName')
 
-          killerFriends = killerCount > 0 ? "+#{killerCount}" : "solo"
+          killerFriends = killerCount > 1 ? "+#{killerCount}" : "solo"
           stem.message "#{killerName} (#{killerFriends}) [#{killerShipName}] killed #{victimName} in #{victimShipName}"
         end
       else
