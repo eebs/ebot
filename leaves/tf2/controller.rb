@@ -47,7 +47,7 @@ class Controller < Autumn::Leaf
 
   def kill_command(stem, sender, reply_to, msg)
     if ['mots', 'motstandet', 'Eebs', 'Eebs|Work'].include?(sender[:nick])
-      uri = URI.parse('https://zkillboard.com/api/kills/characterID/91131249/pastSeconds/86400/?sorry=' + Time.now.to_i.to_s)
+      uri = URI.parse('https://zkillboard.com/api/characterID/91131249/pastSeconds/86400/?sorry=' + Time.now.to_i.to_s)
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Get.new(uri.request_uri, {'Accept-Encoding' => 'gzip'})
       http.use_ssl = true
@@ -55,14 +55,25 @@ class Controller < Autumn::Leaf
       if response.code == '200'
         result = JSON.parse(response.body)
         result.each do |kill|
-          victimName = kill['victim']['characterName']
-          shipTypeID = kill['victim']['shipTypeID']
-          shipTypeNameURL = "https://api.eveonline.com/eve/TypeName.xml.aspx?ids=#{shipTypeID}"
+          killerName = kill['attackers'][0]['characterName'];
+          killerShipTypeID = kill['attackers'][0]['shipTypeID'];
+          killerShipTypeNameURL = "https://api.eveonline.com/eve/TypeName.xml.aspx?ids=#{killerShipTypeID}"
+          killerCount = kill['attackers'].length
 
-          doc = Nokogiri::XML(open(shipTypeNameURL))
+          doc = Nokogiri::XML(open(killerShipTypeNameURL))
           elems = doc.xpath("//*[@typeName]")
-          shipName = elems[0].attribute('typeName')
-          stem.message "Killed #{victimName} in #{shipName}"
+          killerShipName = elems[0].attribute('typeName')
+
+          victimName = kill['victim']['characterName']
+          victimShipTypeID = kill['victim']['shipTypeID']
+          victimShipTypeNameURL = "https://api.eveonline.com/eve/TypeName.xml.aspx?ids=#{victimShipTypeID}"
+
+          doc = Nokogiri::XML(open(victimShipTypeNameURL))
+          elems = doc.xpath("//*[@typeName]")
+          victimShipName = elems[0].attribute('typeName')
+
+          killerFriends = killerCount > 1 ? "+#{killerCount}" : "solo"
+          stem.message "#{killerName} (#{killerFriends}) [#{killerShipName}] killed #{victimName} in #{victimShipName}"
         end
       else
         stem.message "Sorry, KB response code was #{response.code}"
